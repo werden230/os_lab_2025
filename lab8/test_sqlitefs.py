@@ -7,16 +7,10 @@ import time
 import sqlite3
 from pathlib import Path
 import sys
+from database import Database
+from sqlitefs import SQLiteFS
 
-
-try:
-    from database import Database
-    from sqlitefs import SQLiteFS
-    FUSE_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: Could not import required modules: {e}")
-    print("Some tests will be skipped.")
-    FUSE_AVAILABLE = False
+FUSE_AVAILABLE = True
 
 
 class TestDatabase(unittest.TestCase):
