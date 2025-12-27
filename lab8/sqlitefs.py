@@ -62,7 +62,6 @@ class SQLiteFS(Operations):
         if mode == 0:
             mode = 0o755  # rwxr-xr-x
         
-        # Создаем директорию с правильными правами
         dir_mode = (mode & 0o777) | stat.S_IFDIR
         try:
             self.db.create_entry(dirname, basename, dir_mode, uid, gid)
@@ -88,7 +87,6 @@ class SQLiteFS(Operations):
         if mode == 0:
             mode = 0o644  # rw-r--r--
         
-        # Создаем файл с правильными правами
         file_mode = (mode & 0o777) | stat.S_IFREG
         try:
             inode_id = self.db.create_entry(dirname, basename, file_mode, uid, gid)
@@ -123,7 +121,6 @@ class SQLiteFS(Operations):
             }
             return fd
         
-        # Создаем файловый дескриптор
         self.fd_counter += 1
         fd = self.fd_counter
         self.open_files[fd] = {
